@@ -1,0 +1,77 @@
+{
+  "name": "hyper-client",
+  "version": "1.0.0",
+  "description": "Modern HaxBall Desktop Client with Plugins, Themes & Advanced Features",
+  "main": "dist/main.js",
+  "homepage": "./",
+  "private": true,
+  "author": "Zabaleta0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:react\" \"npm run dev:electron\"",
+    "dev:react": "react-scripts start",
+    "dev:electron": "wait-on http://localhost:3000 && electron .",
+    "build": "npm run build:react && npm run build:ts",
+    "build:react": "react-scripts build",
+    "build:ts": "tsc --project tsconfig.electron.json",
+    "build:mac": "npm run build && electron-builder --mac",
+    "build:win-x64": "npm run build && electron-builder --win --x64",
+    "build:win-ia32": "npm run build && electron-builder --win --ia32",
+    "build:win-arm64": "npm run build && electron-builder --win --arm64",
+    "build:linux": "npm run build && electron-builder --linux AppImage deb",
+    "build:all": "npm run build && electron-builder --publish never",
+    "start": "electron .",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
+    "react-router-dom": "^6.18.0",
+    "axios": "^1.6.0",
+    "electron-store": "^8.1.0",
+    "discord-rpc": "^4.0.1",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/node": "^20.0.0",
+    "@types/electron": "^1.6.10",
+    "typescript": "^5.0.0",
+    "react-scripts": "5.0.1",
+    "electron": "^27.0.0",
+    "electron-builder": "^25.0.0",
+    "concurrently": "^8.0.0",
+    "wait-on": "^7.0.0"
+  },
+  "build": {
+    "appId": "com.hyperclient.app",
+    "productName": "Hyper Client",
+    "files": [
+      "build/**/*",
+      "dist/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "mac": {
+      "target": ["dmg", "zip"],
+      "category": "public.app-category.games",
+      "icon": "assets/icon.png"
+    },
+    "win": {
+      "target": ["nsis", "portable"],
+      "icon": "assets/icon.png"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
